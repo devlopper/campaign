@@ -7,80 +7,89 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background: linear-gradient(to right, #007BFF, #00BFA6, #FFFFFF);
             color: #333;
         }
 
         header {
-            background: #007BFF;
+            background: linear-gradient(to right, #0048a5, #00A87E);
             color: #fff;
             padding: 20px 0;
             text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
         header h1 {
             margin: 0;
-            font-size: 2.5em;
-            letter-spacing: 1px;
+            font-size: 2.8em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .container {
-            padding: 20px;
-            max-width: 800px;
-            margin: 20px auto;
+            padding: 30px;
+            max-width: 900px;
+            margin: 30px auto;
             background: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
         }
 
         .hero {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .hero img {
-            max-width: 150px;
+            max-width: 180px;
             border-radius: 50%;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .hero h2 {
-            margin: 10px 0;
+            margin: 15px 0;
             color: #007BFF;
-            font-size: 2em;
+            font-size: 2.5em;
         }
 
         .btn {
             display: inline-block;
-            padding: 10px 20px;
-            background-color: #28A745;
+            padding: 12px 25px;
+            background: linear-gradient(to right, #28A745, #218838);
             color: #fff;
             text-decoration: none;
             font-weight: bold;
-            border-radius: 5px;
-            margin-top: 20px;
+            font-size: 1.1em;
+            border-radius: 8px;
+            margin-top: 25px;
+            transition: background 0.3s ease;
         }
 
         .btn:hover {
-            background-color: #218838;
+            background: linear-gradient(to right, #218838, #1e7e34);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         .message {
-            font-size: 1.2em;
-            line-height: 1.6;
+            font-size: 1.3em;
+            line-height: 1.8;
             text-align: justify;
             margin: 20px 0;
+            color: #555;
         }
 
         footer {
             text-align: center;
-            padding: 10px 0;
-            background: #333;
+            padding: 15px 0;
+            background: linear-gradient(to right, #333, #222);
             color: #fff;
-            margin-top: 20px;
+            margin-top: 30px;
+            font-size: 0.9em;
         }
 
     </style>
@@ -93,8 +102,8 @@
     <div class="container">
         <div class="hero">
             <img src="portrait.jpg" alt="Portrait du candidat">
-            <h2>Nom du Collègue</h2>
-            <p>Votre candidat pour la présidence de la mutuelle</p>
+            <h2>Stéphane Brice Aime N'Dri</h2>
+            <p>Votre candidat pour la présidence de la mutuelle de la Direction des Systèmes d'Information Budgétaire</p>
         </div>
 
         <div class="message">
@@ -109,13 +118,13 @@
             </p>
         </div>
 
-        <div class="text-center">
+        <div class="text-center" style="text-align: center;">
             <a href="#" class="btn">En savoir plus</a>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2024 Campagne pour la Présidence | Votre Mutuelle</p>
+        <p>&copy; 2024 Campagne pour la Présidence | Mutuelle de la Direction des Systèmes d'Information Budgétaire</p>
     </footer>
 </body>
 </html>
