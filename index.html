@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
             background: linear-gradient(to right, #007BFF, #00BFA6, #FFFFFF);
@@ -20,6 +20,7 @@
             padding: 20px 0;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
         }
 
         header h1 {
@@ -27,6 +28,14 @@
             font-size: 2.8em;
             letter-spacing: 2px;
             text-transform: uppercase;
+        }
+
+        .logo {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
         }
 
         .container {
@@ -85,17 +94,17 @@
 
         footer {
             text-align: center;
-            padding: 15px 0;
+            padding: 10px 0;
             background: linear-gradient(to right, #333, #222);
             color: #fff;
             margin-top: 30px;
             font-size: 0.9em;
         }
-
     </style>
 </head>
 <body>
     <header>
+        <img class="logo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23007BFF'/><text x='50%' y='55%' font-size='20' fill='white' text-anchor='middle' font-family='Arial'>Mutuelle</text></svg>" alt="Logo">
         <h1>Votez pour un Avenir Meilleur</h1>
     </header>
     
