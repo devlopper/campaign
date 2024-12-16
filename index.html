@@ -95,6 +95,22 @@
             z-index: 1;
         }
 
+        @media (max-width: 568px) {
+            .hero::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: url('images/image-goupe-1.jpg');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                z-index: 1;
+            }
+        }
+
         .hero::after {
             content: '';
             position: absolute;
@@ -317,57 +333,128 @@
         </div>
     </section>
 
-    <section id="programme" class="programme-section" style="padding: 6rem 2rem; background: #ffffff;">
+    
+
+    <section id="programme" class="programme-section d-none" style="padding: 6rem 2rem; background: #ffffff;">
         <div style="max-width: 1200px; margin: 0 auto;">
             <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Mon Programme</h2>
-            
+    
             <div class="programme-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-bottom: 4rem;">
+                <!-- Action 1: Formation Continue -->
                 <div class="programme-card" style="background: #f8fafc; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
                     <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Formation Continue</h3>
                     <ul style="list-style-type: none; padding: 0;">
                         <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">→</span>
+                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
                             Mise en place d'un programme de formation annuel personnalisé
                         </li>
                         <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">→</span>
+                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
                             Partenariats avec des organismes de formation professionnelle
                         </li>
                         <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">→</span>
+                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
                             Création d'une plateforme e-learning dédiée aux adhérents
                         </li>
                         <li style="padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">→</span>
+                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
                             Organisation de workshops et séminaires thématiques
                         </li>
                     </ul>
                 </div>
-                
+    
+                <!-- Action 2: Un Agent, Un Terrain -->
                 <div class="programme-card" style="background: #f8fafc; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
                     <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Un Agent, Un Terrain</h3>
                     <ul style="list-style-type: none; padding: 0;">
                         <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">→</span>
-                            Attribution équitable des terrains selon les compétences
+                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
+                            Faciliter l’accès à la propriété foncière pour les membres de la mutuelle
                         </li>
                         <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">→</span>
-                            Système de rotation pour diversifier les expériences
+                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
+                            Identifier des partenaires fiables pour des terrains sécurisés
                         </li>
                         <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">→</span>
-                            Accompagnement personnalisé pour chaque agent
+                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
+                            Mise en place d’un fonds rotatif pour soutenir les adhérents
                         </li>
                         <li style="padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">→</span>
-                            Évaluation régulière et ajustement des attributions
+                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
+                            Système de suivi pour éviter les litiges fonciers
+                        </li>
+                    </ul>
+                </div>
+    
+                <!-- Action 3: Menus de Restaurants -->
+                <div class="programme-card" style="background: #f8fafc; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                    <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Menus de Restaurants</h3>
+                    <ul style="list-style-type: none; padding: 0;">
+                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
+                            Négociation avec des restaurants locaux pour des tarifs préférentiels
+                        </li>
+                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
+                            Mise en place d’un système de coupons ou bons de réduction
+                        </li>
+                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
+                            Promotion des repas équilibrés et sains
+                        </li>
+                    </ul>
+                </div>
+    
+                <!-- Action 4: Activités Sportives -->
+                <div class="programme-card" style="background: #f8fafc; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                    <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Activités Sportives</h3>
+                    <ul style="list-style-type: none; padding: 0;">
+                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
+                            Organisation d’événements sportifs trimestriels
+                        </li>
+                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
+                            Mise à disposition d’équipements de base
+                        </li>
+                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
+                            Encourager la participation des familles
+                        </li>
+                        <li style="padding-left: 1.5rem; position: relative;">
+                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
+                            Organisation de conférences sur la santé et le sport
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Action 5: Instaurer une gestion transparente et participative -->
+                <div class="programme-card" style="background: #f8fafc; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                    <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Instaurer une gestion transparente et participative</h3>
+                    <ul style="list-style-type: none; padding: 0;">
+                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
+                            Mise en place de rapports financiers réguliers, simplifiés et accessibles à tous
+                        </li>
+                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
+                            Suivre les projets en cours et leurs avancements.
+                        </li>
+                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
+                            Être informer des activités à venir (formations, sport, etc.).
+                        </li>
+                        <li style="padding-left: 1.5rem; position: relative;">
+                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
+                            Interaction en temps réel sur l’évolution et l'organisation des activités ou des rapports.
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
+    
+    
 
     <section class="cta-section">
         <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Participez au changement</h2>
