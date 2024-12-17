@@ -3,20 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stéphane N'Dri | Candidat à la Présidence</title>
+    <title>Stéphane N'Dri | Candidat à la Présidence MADTI</title>
+    <!-- Animations avancées -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <!-- AOS pour les animations au scroll -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <!-- Swiper pour les carrousels -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.css" rel="stylesheet">
     <style>
         :root {
             --primary: #1a56db;
             --secondary: #00BFA6;
             --accent: #fbbf24;
             --text: #1f2937;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -24,15 +31,22 @@
             line-height: 1.6;
             color: var(--text);
             background: #f3f4f6;
+            overflow-x: hidden;
         }
 
         .header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--gradient);
             padding: 1rem;
             position: fixed;
             width: 100%;
             z-index: 1000;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(26, 86, 219, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1rem;
         }
 
         .nav {
@@ -51,6 +65,25 @@
             color: white;
             font-weight: bold;
             font-size: 1.5rem;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover::after {
+            transform: translateX(0);
         }
 
         .nav-links {
@@ -62,11 +95,25 @@
             color: white;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
         }
 
-        .nav-link:hover {
-            color: var(--accent);
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            transform: scaleX(1);
         }
 
         .hero {
@@ -111,6 +158,11 @@
             }
         }
 
+        @keyframes zoomInOut {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
         .hero::after {
             content: '';
             position: absolute;
@@ -118,7 +170,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.7));
             z-index: 2;
         }
 
@@ -126,31 +178,67 @@
             position: relative;
             z-index: 3;
             max-width: 800px;
-            animation: fadeIn 1.5s ease-out;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            animation: fadeIn 1.5s ease-out;
         }
 
         .hero-title {
-            font-size: 3.5rem;
+            font-size: 4rem;
             margin-bottom: 1rem;
             font-weight: 800;
             line-height: 1.2;
-            margin-top: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideInDown 1s ease-out;
         }
 
         .hero-subtitle {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-bottom: 2rem;
             opacity: 0.9;
+            animation: slideInUp 1s ease-out 0.5s backwards;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
         .candidate-section {
-            padding: 6rem 2rem;
+            padding: 8rem 2rem;
             background: white;
+            position: relative;
+            overflow: hidden;
         }
 
         .candidate-container {
@@ -164,15 +252,26 @@
 
         .candidate-image {
             position: relative;
-            border-radius: 1rem;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+            transform: perspective(1000px) rotateY(-15deg);
+            transition: transform 0.5s ease;
+        }
+
+        .candidate-image:hover {
+            transform: perspective(1000px) rotateY(0);
         }
 
         .candidate-image img {
             width: 100%;
             height: auto;
             display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .candidate-image:hover img {
+            transform: scale(1.05);
         }
 
         .candidate-info {
@@ -180,15 +279,32 @@
         }
 
         .section-title {
-            font-size: 2.5rem;
-            color: var(--primary);
+            font-size: 3rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
             margin-bottom: 1.5rem;
             font-weight: 800;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50%;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
         }
 
         .vision-section {
             background: linear-gradient(135deg, #f3f4f6 0%, #ffffff 100%);
-            padding: 6rem 2rem;
+            padding: 8rem 2rem;
+            position: relative;
         }
 
         .vision-grid {
@@ -201,46 +317,116 @@
 
         .vision-card {
             background: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vision-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
         }
 
         .vision-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.15);
+        }
+
+        .vision-card:hover::before {
+            opacity: 0.05;
         }
 
         .vision-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .programme-section {
+            background: #ffffff;
+            padding: 8rem 2rem;
+        }
+
+        .programme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .programme-card {
+            background: #f8fafc;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .programme-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .programme-card h3 {
             color: var(--primary);
-            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .programme-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 2px;
         }
 
-        .btn:hover {
-            background: var(--secondary);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        .contact-section {
+            padding: 8rem 2rem;
+            background: #f8fafc;
+            position: relative;
+            overflow: hidden;
         }
 
-        .cta-section {
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-item {
             text-align: center;
-            padding: 6rem 2rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
 
         .footer {
@@ -248,6 +434,17 @@
             color: white;
             padding: 2rem;
             text-align: center;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
         }
 
         @media (max-width: 768px) {
@@ -263,8 +460,82 @@
                 grid-template-columns: 1fr;
             }
 
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
             .hero-title {
                 font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        [data-aos] {
+            opacity: 0;
+            transition-property: transform, opacity;
+        }
+
+        [data-aos].aos-animate {
+            opacity: 1;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
             }
         }
     </style>
@@ -272,9 +543,9 @@
 <body>
     <header class="header">
         <nav class="nav">
-            <div class="logo">
+            <a href="#" class="logo">
                 <span>MADTI</span>
-            </div>
+            </a>
             <div class="nav-links">
                 <a href="#vision" class="nav-link">Vision</a>
                 <a href="#programme" class="nav-link">Programme</a>
@@ -283,15 +554,22 @@
         </nav>
     </header>
 
-    <section class="hero" >
+    <section class="hero">
         <div class="hero-content">
-            <h1 class="hero-title animate__animated animate__fadeInDown" style="margin-top: 500px !important;">Stéphane Brice Aime N'Dri</h1>
-            <p class="hero-subtitle animate__animated animate__fadeInUp">Ensemble, construisons l'avenir de notre mutuelle</p>
+            <h1 class="hero-title animate__animated animate__fadeInDown">Stéphane Brice Aime N'Dri</h1>
+            <p class="hero-subtitle animate__animated animate__fadeInUp">
+                <span id="typed-text"></span>
+            </p>
             <a href="#vision" class="btn animate__animated animate__fadeInUp">Découvrir ma vision</a>
+        </div>
+        <div class="scroll-indicator">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            </svg>
         </div>
     </section>
 
-    <section class="candidate-section">
+    <section class="candidate-section" data-aos="fade-up">
         <div class="candidate-container">
             <div class="candidate-image">
                 <img src="images/img.png" alt="Stéphane N'Dri">
@@ -312,183 +590,249 @@
         </div>
     </section>
 
-    <section class="vision-section" id="vision">
-        <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Ma Vision</h2>
-        <div class="vision-grid">
-            <div class="vision-card">
-                <div class="vision-icon">🎯</div>
-                <h3 style="margin-bottom: 1rem;">Innovation</h3>
-                <p>Modernisation des services et digitalisation des processus pour une meilleure expérience adhérent.</p>
-            </div>
-            <div class="vision-card">
-                <div class="vision-icon">🤝</div>
-                <h3 style="margin-bottom: 1rem;">Solidarité</h3>
-                <p>Renforcement des liens entre adhérents et développement de nouveaux programmes d'entraide.</p>
-            </div>
-            <div class="vision-card">
-                <div class="vision-icon">💎</div>
-                <h3 style="margin-bottom: 1rem;">Transparence</h3>
-                <p>Gestion claire et communication régulière sur les décisions et les orientations de la mutuelle.</p>
+
+    <section id="vision" class="vision-section">
+        <div class="programme-container" style="max-width: 1200px; margin: 0 auto;">
+            <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Ma Vision</h2>
+            <div class="vision-grid">
+                <div class="vision-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="vision-icon">🎯</div>
+                    <h3>Innovation</h3>
+                    <p>Modernisation des services et digitalisation des processus pour une meilleure expérience adhérent.</p>
+                </div>
+                <div class="vision-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="vision-icon">🤝</div>
+                    <h3>Solidarité</h3>
+                    <p>Renforcement des liens entre adhérents et développement de nouveaux programmes d'entraide.</p>
+                </div>
+                <div class="vision-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="vision-icon">💎</div>
+                    <h3>Transparence</h3>
+                    <p>Gestion claire et communication régulière sur les décisions et les orientations de la mutuelle.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    
-
-    <section id="programme" class="programme-section d-none" style="padding: 6rem 2rem; background: #ffffff;">
-        <div style="max-width: 1200px; margin: 0 auto;">
+    <section id="programme" class="programme-section">
+        <div class="programme-container" style="max-width: 1200px; margin: 0 auto;">
             <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Mon Programme</h2>
-    
-            <div class="programme-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-bottom: 4rem;">
-
-                <!-- Action 2: Un Agent, Un Terrain -->
-                <div class="programme-card" style="background: #f8fafc; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                    <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Un Agent, Un Terrain</h3>
+            <div class="programme-grid">
+                <!-- Programme cards with data-aos animations -->
+                <div class="programme-card" data-aos="fade-up">
+                    <h3>Un Agent, Un Terrain</h3>
                     <ul style="list-style-type: none; padding: 0;">
-                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
-                            Faciliter l’accès à la propriété foncière pour les membres de la mutuelle
-                        </li>
-                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
-                            Identifier des partenaires fiables pour des terrains sécurisés
-                        </li>
-                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
-                            Mise en place d’un fonds rotatif pour soutenir les adhérents
-                        </li>
-                        <li style="padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
-                            Système de suivi pour éviter les litiges fonciers
-                        </li>
-                    </ul>
-                </div>
-    
-                <!-- Action 3: Menus de Restaurants -->
-                <div class="programme-card" style="background: #f8fafc; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                    <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Menus de Restaurants</h3>
-                    <ul style="list-style-type: none; padding: 0;">
-                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
-                            Négociation avec des restaurants locaux pour des tarifs préférentiels
-                        </li>
-                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
-                            Mise en place d’un système de coupons ou bons de réduction
-                        </li>
-                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
-                            Promotion des repas équilibrés et sains
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- Action 1: Formation Continue -->
-                <div class="programme-card" style="background: #f8fafc; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                    <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Formation Continue</h3>
-                    <ul style="list-style-type: none; padding: 0;">
-                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
-                            Mise en place d'un programme de formation annuel personnalisé
-                        </li>
-                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
-                            Partenariats avec des organismes de formation professionnelle
-                        </li>
-                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
-                            Création d'une plateforme e-learning dédiée aux adhérents
-                        </li>
-                        <li style="padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
-                            Organisation de workshops et séminaires thématiques
-                        </li>
-                    </ul>
-                </div>
-    
-                
-    
-                <!-- Action 4: Activités Sportives -->
-                <div class="programme-card" style="background: #f8fafc; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                    <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Activités Sportives</h3>
-                    <ul style="list-style-type: none; padding: 0;">
-                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
-                            Organisation d’événements sportifs trimestriels
-                        </li>
-                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
-                            Mise à disposition d’équipements de base
-                        </li>
-                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
-                            Encourager la participation des familles
-                        </li>
-                        <li style="padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
-                            Organisation de conférences sur la santé et le sport
-                        </li>
+                        <li>Faciliter l'accès à la propriété foncière</li>
+                        <li>Identifier des partenaires fiables</li>
+                        <li>Mise en place d'un fonds rotatif</li>
+                        <li>Système de suivi transparent</li>
                     </ul>
                 </div>
 
-                <!-- Action 5: Instaurer une gestion transparente et participative -->
-                <div class="programme-card" style="background: #f8fafc; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                    <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Instaurer une gestion transparente et participative</h3>
+                <div class="programme-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3>Formation Continue</h3>
                     <ul style="list-style-type: none; padding: 0;">
-                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
-                            Mise en place de rapports financiers réguliers, simplifiés et accessibles à tous
-                        </li>
-                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
-                            Suivre les projets en cours et leurs avancements.
-                        </li>
-                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
-                            Être informer des activités à venir (formations, sport, etc.).
-                        </li>
-                        <li style="padding-left: 1.5rem; position: relative;">
-                            <span style="color: var(--primary); position: absolute; left: 0;">&#8594;</span>
-                            Interaction en temps réel sur l’évolution et l'organisation des activités ou des rapports.
-                        </li>
+                        <li>Programme de formation personnalisé</li>
+                        <li>Partenariats professionnels</li>
+                        <li>Plateforme e-learning dédiée</li>
+                        <li>Workshops thématiques</li>
+                    </ul>
+                </div>
+
+                <div class="programme-card" data-aos="fade-up" data-aos-delay="400">
+                    <h3>Restauration Qualitative</h3>
+                    <ul style="list-style-type: none; padding: 0;">
+                        <li>Partenariats restaurants</li>
+                        <li>Tarifs préférentiels</li>
+                        <li>Système de coupons innovant</li>
+                        <li>Promotion santé nutritionnelle</li>
+                    </ul>
+                </div>
+
+                <div class="programme-card" data-aos="fade-up">
+                    <h3>Activités Sportives</h3>
+                    <ul style="list-style-type: none; padding: 0;">
+                        <li>Événements sportifs réguliers</li>
+                        <li>Équipements accessibles</li>
+                        <li>Activités familiales</li>
+                        <li>Conférences bien-être</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
-    
-    
 
-    <section class="cta-section">
-        <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Participez au changement</h2>
-        <p style="font-size: 1.2rem; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
-            Votre voix compte. Ensemble, nous pouvons construire une mutuelle plus forte, 
-            plus innovante et plus solidaire.
-        </p>
-        <a href="#contact" class="btn" style="background: white; color: var(--primary);">Rejoignez le mouvement</a>
+    <section class="cta-section" data-aos="fade-up">
+        <div class="cta-container">
+            <h2 class="section-title" style="color: white; text-align: center;">Participez au changement</h2>
+            <div class="cta-content">
+                <div class="cta-text">
+                    <p class="cta-description">Votre voix est essentielle pour construire l'avenir de notre mutuelle. Ensemble, nous pouvons créer une institution plus forte, plus innovante et plus solidaire qui répond aux besoins de tous ses membres.</p>
+                    <div class="cta-features">
+                        <div class="cta-feature">
+                            <div class="feature-icon">🗳️</div>
+                            <h3>Votre Vote Compte</h3>
+                            <p>Chaque voix contribue à façonner l'avenir de notre mutuelle</p>
+                        </div>
+                        <div class="cta-feature">
+                            <div class="feature-icon">💪</div>
+                            <h3>Force Collective</h3>
+                            <p>Unis, nous pouvons réaliser de grands changements</p>
+                        </div>
+                        <div class="cta-feature">
+                            <div class="feature-icon">🌟</div>
+                            <h3>Avenir Prometteur</h3>
+                            <p>Construisons ensemble une mutuelle moderne et dynamique</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="cta-actions">
+                    <a href="#contact" class="btn btn-primary">Rejoignez le mouvement</a>
+                    <a href="#programme" class="btn btn-secondary">Découvrir le programme</a>
+                </div>
+            </div>
+        </div>
+        <style>
+            .cta-section {
+                background: var(--gradient);
+                padding: 8rem 2rem;
+                color: white;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .cta-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: url('/api/placeholder/1920/1080') center/cover;
+                opacity: 0.1;
+                z-index: 1;
+            }
+
+            .cta-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                position: relative;
+                z-index: 2;
+            }
+
+            .cta-content {
+                margin-top: 3rem;
+            }
+
+            .cta-description {
+                font-size: 1.25rem;
+                line-height: 1.8;
+                max-width: 800px;
+                margin: 0 auto 3rem;
+                text-align: center;
+                opacity: 0.9;
+            }
+
+            .cta-features {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+                margin-bottom: 3rem;
+            }
+
+            .cta-feature {
+                background: rgba(255, 255, 255, 0.1);
+                padding: 2rem;
+                border-radius: 1rem;
+                text-align: center;
+                backdrop-filter: blur(10px);
+                transition: transform 0.3s ease;
+            }
+
+            .cta-feature:hover {
+                transform: translateY(-5px);
+            }
+
+            .feature-icon {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .cta-feature h3 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+                color: white;
+            }
+
+            .cta-feature p {
+                opacity: 0.9;
+                line-height: 1.6;
+            }
+
+            .cta-actions {
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .btn-primary {
+                background: white;
+                color: var(--primary);
+            }
+
+            .btn-primary:hover {
+                background: var(--accent);
+                color: white;
+            }
+
+            .btn-secondary {
+                background: transparent;
+                border: 2px solid white;
+            }
+
+            .btn-secondary:hover {
+                background: white;
+                color: var(--primary);
+            }
+
+            @media (max-width: 768px) {
+                .cta-features {
+                    grid-template-columns: 1fr;
+                }
+
+                .cta-actions {
+                    flex-direction: column;
+                }
+
+                .cta-description {
+                    font-size: 1.1rem;
+                }
+            }
+        </style>
     </section>
 
-    <section id="contact" class="contact-section" style="padding: 6rem 2rem; background: #f8fafc;">
+    <section id="contact" class="contact-section">
         <div style="max-width: 800px; margin: 0 auto; text-align: center;">
             <h2 class="section-title" style="margin-bottom: 2rem;">Contactez-moi</h2>
             <p style="font-size: 1.2rem; margin-bottom: 3rem;">
                 Je suis à votre écoute pour échanger sur ma vision et répondre à vos questions.
             </p>
             
-            <div class="contact-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 3rem;">
-                <div class="contact-item">
+            <div class="contact-grid">
+                <div class="contact-item" data-aos="fade-up">
                     <div style="font-size: 2rem; margin-bottom: 1rem;">📧</div>
-                    <h3 style="margin-bottom: 0.5rem;">Email</h3>
-                    <p>stephane.ndri@madti.org</p>
+                    <h3>Email</h3>
+                    <p>ai.ndri@budget.gouv.ci</p>
                 </div>
-                <div class="contact-item">
+                <div class="contact-item" data-aos="fade-up" data-aos-delay="200">
                     <div style="font-size: 2rem; margin-bottom: 1rem;">📱</div>
-                    <h3 style="margin-bottom: 0.5rem;">Téléphone</h3>
-                    <p>+225 07 XX XX XX XX</p>
+                    <h3>Téléphone</h3>
+                    <p>+225 07 58 69 62 84</p>
                 </div>
-                <div class="contact-item">
+                <div class="contact-item" data-aos="fade-up" data-aos-delay="400">
                     <div style="font-size: 2rem; margin-bottom: 1rem;">🏢</div>
-                    <h3 style="margin-bottom: 0.5rem;">Bureau</h3>
+                    <h3>Bureau</h3>
                     <p>Bureau 304, Plateau</p>
                 </div>
             </div>
@@ -498,5 +842,352 @@
     <footer class="footer">
         <p>&copy; 2024 Campagne Stéphane N'Dri | Mutuelle de la Direction des Systèmes d'Information Budgétaire</p>
     </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Reveal animations on scroll
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', reveal);
+    
+        // Parallax effect
+        window.addEventListener('scroll', () => {
+            const parallaxElements = document.querySelectorAll('.parallax');
+            parallaxElements.forEach(element => {
+                const speed = element.dataset.speed || 0.5;
+                const yPos = -(window.scrollY * speed);
+                element.style.transform = `translateY(${yPos}px)`;
+            });
+        });
+
+        // Progress bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+
+        // Initialisation de Typed.js
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof Typed !== 'undefined') {
+                new Typed('#typed-text', {
+                    strings: ['Ensemble, construisons l\'avenir', 'Innovation et Transparence', 'Une mutuelle plus forte'],
+                    typeSpeed: 50,
+                    backSpeed: 30,
+                    backDelay: 2000,
+                    loop: true,
+                    startDelay: 500
+                });
+            }
+        });
+
+        // Counter animation
+        const counterAnimation = () => {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = parseInt(counter.getAttribute('data-target'));
+                    const count = parseInt(counter.innerText);
+                    const increment = target / 200;
+
+                    if(count < target) {
+                        counter.innerText = Math.ceil(count + increment);
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+        };
+
+        // Initialize counter animation when section is visible
+        const counterSection = document.querySelector('.stats-section');
+        const observer = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting) {
+                counterAnimation();
+            }
+        });
+        if(counterSection) {
+            observer.observe(counterSection);
+        }
+
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        if(menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                menuToggle.classList.toggle('active');
+            });
+        }
+
+        // Custom cursor
+        const cursor = document.createElement('div');
+        cursor.className = 'custom-cursor';
+        document.body.appendChild(cursor);
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Add hover effect to interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, .vision-card, .programme-card');
+        interactiveElements.forEach(element => {
+            element.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            element.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // Preloader avec gestion améliorée
+        document.addEventListener('DOMContentLoaded', () => {
+            const preloader = document.querySelector('.preloader');
+            
+            // Fonction pour masquer le preloader
+            const hidePreloader = () => {
+                if (preloader) {
+                    preloader.classList.add('preloader-finish');
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                    }, 500);
+                }
+            };
+
+            // Gestion du cas où le contenu est déjà chargé
+            if (document.readyState === 'complete') {
+                hidePreloader();
+            } else {
+                window.addEventListener('load', hidePreloader);
+            }
+            
+            // Fallback de sécurité après 3 secondes
+            setTimeout(hidePreloader, 3000);
+        });
+    </script>
+
+    <!-- Typed.js for dynamic text -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+
+    <!-- Stats counter section -->
+    <!-- <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="counter" data-target="1500">0</div>
+                <p>Adhérents</p>
+            </div>
+            <div class="stat-item">
+                <div class="counter" data-target="25">0</div>
+                <p>Années d'expérience</p>
+            </div>
+            <div class="stat-item">
+                <div class="counter" data-target="100">0</div>
+                <p>Projets réalisés</p>
+            </div>
+        </div>
+    </section> -->
+
+    <style>
+        /* Additional styles for new features */
+        /* Styles améliorés pour le préchargeur */
+        body.loading {
+            overflow: hidden;
+        }
+
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .preloader-finish {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .preloader::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            z-index: -1;
+        }
+
+        .progress-container {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 1001;
+        }
+
+        #progressBar {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.2s ease;
+        }
+
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .custom-cursor.hover {
+            width: 40px;
+            height: 40px;
+            background: rgba(26, 86, 219, 0.1);
+        }
+
+        .stats-section {
+            padding: 6rem 2rem;
+            background: var(--gradient);
+            color: white;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 2rem;
+        }
+
+        .counter {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        /* Mobile menu styles */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 2px 0;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 80%;
+                height: calc(100vh - 70px);
+                background: var(--primary);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem;
+                transition: right 0.3s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+        }
+
+        /* Loading animation */
+        @keyframes loading {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: loading 1s infinite linear;
+        }
+    </style>
+
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-container">
+        <div id="progressBar"></div>
+    </div>
 </body>
 </html>
