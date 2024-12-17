@@ -96,7 +96,7 @@
             text-decoration: none;
             font-weight: 500;
             position: relative;
-            padding: 0.5rem 0;
+            /* padding: 0.5rem 0; */
             transition: all 0.3s ease;
         }
 
@@ -538,6 +538,25 @@
                 transform: translateY(-15px);
             }
         }
+
+        .stat-item{
+            display: flex;
+            padding: 0px !important;
+
+            color: white;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: all 0.3s ease;
+        }
+        .counter{
+            font-size: inherit !important;
+        }
+
+        .visit-counter{
+            margin-right: 8px ;
+        }
     </style>
 </head>
 <body>
@@ -550,7 +569,9 @@
                 <a href="#vision" class="nav-link">Vision</a>
                 <a href="#programme" class="nav-link">Programme</a>
                 <a href="#contact" class="nav-link">Contact</a>
+                <div class="stats-container" style="display: flex;"> </div>
             </div>
+            
         </nav>
     </header>
 
@@ -829,6 +850,7 @@
             <p style="font-size: 1.2rem; margin-bottom: 3rem;">
                 Je suis à votre écoute pour échanger sur ma vision et répondre à vos questions.
             </p>
+            
             
             <div class="contact-grid">
                 <div class="contact-item" data-aos="fade-up">
@@ -1115,7 +1137,6 @@
         .counter {
             font-size: 3rem;
             font-weight: bold;
-            margin-bottom: 1rem;
         }
 
         /* Mobile menu styles */
@@ -1182,5 +1203,93 @@
     <div class="progress-container">
         <div id="progressBar"></div>
     </div>
+
+
+
+    
+    <script>
+        // Visit Counter Implementation
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to get or set visit count in localStorage
+    function getVisitCount() {
+        // Check if localStorage is supported
+        if (typeof(Storage) !== "undefined") {
+            // Get current visit count
+            let visitCount = localStorage.getItem('visitCount');
+            
+            // If no visit count exists, initialize to 0
+            if (visitCount === null) {
+                visitCount = 0;
+            }
+            
+            // Increment visit count
+            visitCount = Number(visitCount) + 1;
+            
+            // Save updated count
+            localStorage.setItem('visitCount', visitCount);
+            
+            return visitCount;
+        } else {
+            // Fallback for browsers that don't support localStorage
+            return 'Non supporté';
+        }
+    }
+
+    // Function to render visit counter in the stats section
+    function renderVisitCounter() {
+        // Find the stats container
+        const statsContainer = document.querySelector('.stats-container');
+        
+        if (statsContainer) {
+            // Create a new stat item for visits
+            const visitStatItem = document.createElement('div');
+            visitStatItem.className = 'stat-item';
+            
+            // Create counter and description elements
+            const counterElement = document.createElement('div');
+            counterElement.className = 'counter visit-counter';
+            counterElement.setAttribute('data-target', getVisitCount());
+            counterElement.textContent = '0';
+            
+            const descriptionElement = document.createElement('p');
+            descriptionElement.textContent = 'Visites';
+            
+            // Assemble the stat item
+            visitStatItem.appendChild(counterElement);
+            visitStatItem.appendChild(descriptionElement);
+            
+            // Add to stats container
+            statsContainer.appendChild(visitStatItem);
+            
+            // Trigger counter animation
+            counterAnimation();
+        }
+    }
+
+    // Extend existing counter animation to work with visit counter
+    const originalCounterAnimation = window.counterAnimation;
+    window.counterAnimation = function() {
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const count = parseInt(counter.innerText);
+                const increment = target / 200;
+
+                if(count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(updateCount, 1);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+            updateCount();
+        });
+    };
+
+    // Render visit counter when DOM is fully loaded
+    renderVisitCounter();
+});
+    </script>
 </body>
 </html>
