@@ -142,6 +142,20 @@
             z-index: 1;
         }
 
+        .hero2::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/poulet-parti.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 1;
+        }
+
         @media (max-width: 568px) {
             .hero::before {
                 content: '';
@@ -151,6 +165,20 @@
                 right: 0;
                 bottom: 0;
                 background: url('images/image-goupe-1.jpg');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                z-index: 1;
+            }
+
+            .hero2::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: url('images/poulet-parti.jpg');
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center;
@@ -171,6 +199,16 @@
             right: 0;
             bottom: 0;
             background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.5));
+            z-index: 2;
+        }
+
+        .hero2::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             z-index: 2;
         }
 
@@ -588,6 +626,11 @@
             </svg>
         </div>
     </section>
+
+    <section class="hero2"> </section>
+
+
+    
 
     <section class="candidate-section" data-aos="fade-up">
         <div class="candidate-container">
@@ -1202,6 +1245,26 @@
     <div class="progress-container">
         <div id="progressBar"></div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const heroSection = document.querySelector('.hero');
+            const hero2Section = document.querySelector('.hero2');
+            
+            if (heroSection && hero2Section) {
+                // Masquer initialement le hero
+                heroSection.style.display = 'none';
+
+                setTimeout(() => {
+                    // Masquer hero2
+                    hero2Section.style.display = 'none';
+                    
+                    // Afficher hero
+                    heroSection.style.display = 'flex';
+                }, 10000); // 10000 milliseconds = 10 seconds
+            }
+        });
+    </script>
 
 
 </body>
